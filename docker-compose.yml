@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./Backend
+    ports:
+      - "3936:3936"
+    depends_on:
+      - db
+    volumes:
+      - ./Backend/Uploads:/app/uploads
+    environment:
+      - PGUSER=postgres
+      - PGPASSWORD=admin321
+      - PGDATABASE=claims_portal
+      - PGHOST=db
+      - PGPORT=5432
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "9014:80"
+
+  hr:
+    build: ./HR
+    ports:
+      - "9015:80"
+
+  db:
+    image: postgres:13
+    restart: always
+    ports:
+      - "5465:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin321
+      POSTGRES_DB: claims_portal
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
