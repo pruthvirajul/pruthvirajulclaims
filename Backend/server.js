@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 3000;
+const port = 3841;
 
 // Middleware
 app.use(cors());
@@ -101,7 +101,7 @@ app.get('/api/claims', async (req, res) => {
 // When retrieving files, construct the URL properly
 claim.attachments = attachments.map(att => ({
   name: att.file_name,
-  url: `http://16.171.230.2:3000/uploads/${encodeURIComponent(att.file_path)}`,
+  url: `http://16.171.230.2:3841/uploads/${encodeURIComponent(att.file_path)}`,
   size: att.file_size
 }));
     }
@@ -130,7 +130,7 @@ app.get('/api/claims/:id', async (req, res) => {
     
     claim.attachments = attachments.map(att => ({
       name: att.file_name,
-      url: `http://16.171.230.2:3000/${att.file_path}`,
+      url: `http://16.171.230.2:3841/${att.file_path}`,
       size: att.file_size
     }));
     
@@ -158,7 +158,7 @@ app.get('/api/claims/employee/:employeeId', async (req, res) => {
       );
       claim.attachments = attachments.map(att => ({
         name: att.file_name,
-        url: `http://16.171.230.2:3000/${att.file_path}`,
+        url: `http://16.171.230.2:3841/${att.file_path}`,
         size: att.file_size
       }));
     }
@@ -226,7 +226,7 @@ app.post('/api/claims', upload.array('attachments'), async (req, res) => {
 
     claim.attachments = attachments.map(att => ({
       name: att.file_name,
-      url: `http://16.171.230.2:3000/${path.basename(att.file_path)}`,
+      url: `http://16.171.230.2:3841/${path.basename(att.file_path)}`,
       size: att.file_size
     }));
 
